@@ -3,37 +3,49 @@ import LoginView from "./Login.view";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectErrorState,
-  selectIsLoadingState,
+  selectIsLoadingState as selectIsLoadingTokenState,
   selectIsLoggedState,
 } from "@redux/selectors/auth";
-import { loginRequest } from "@redux/slices/auth";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { MainStackParamList } from "../index";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MainStackParamList } from "..";
+import { loginRequest } from "@redux/slices/auth";
+import { getUserInfoRequest } from "@redux/slices/user";
+import {
+  selectIsLoadedUserInfoState,
+  selectIsLoadingState as selectIsLoadingUserInfoState,
+} from "@redux/selectors/user";
 
 const LoginScreen: FC = (): JSX.Element => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const isLogged = useSelector(selectIsLoggedState);
-  const isLoading = useSelector(selectIsLoadingState);
+  const isLoadedUserInfo = useSelector(selectIsLoadedUserInfoState);
+  const isLoadingToken = useSelector(selectIsLoadingTokenState);
+  const isLoadingUserInfo = useSelector(selectIsLoadingUserInfoState);
   const error = useSelector(selectErrorState);
-  const dispatch = useDispatch();
   const { navigate } = useNavigation<StackNavigationProp<MainStackParamList>>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isLogged) {
-      console.log("????????");
-      setUsername("");
-      setPassword("");
-      AsyncStorage.getItem("access_token").then((rs) => console.log(rs));
-      navigate("Dashboard");
+      if (isLoadedUserInfo) {
+        setUsername("");
+        setPassword("");
+        navigate("MainStack");
+      } else {
+        dispatch(getUserInfoRequest());
+      }
     }
-  }, [isLogged]);
+  }, [isLogged, isLoadedUserInfo]);
 
   const onSubmitLogin = () => {
-    dispatch(loginRequest({ username, password }));
+    dispatch(
+      loginRequest({
+        username: "dung+octopus4@101digital.io",
+        password: "Abc@123456",
+      })
+    );
   };
 
   return (
@@ -43,6 +55,7 @@ const LoginScreen: FC = (): JSX.Element => {
       setUserName={setUsername}
       setPassword={setPassword}
       onSubmitLogin={onSubmitLogin}
+      isLoading={isLoadingToken || isLoadingUserInfo}
       error={error}
     />
   );

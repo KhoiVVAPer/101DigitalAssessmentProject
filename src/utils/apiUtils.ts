@@ -1,5 +1,5 @@
 import axiosClient from "services/axios";
-import qs from 'qs';
+import qs from "qs";
 import axios from "axios";
 
 const buildURLWithParams = (url: string, params: Record<string, any>) => {
@@ -42,7 +42,7 @@ export default class APIUtils {
     return axiosClient.get(requestedUrl, { headers: fetchConfig });
   }
 
-  static async post(url: string, { headers = {}, body = {}  }: IConfigAPI) {
+  static async post(url: string, { headers = {}, body = {} }: IConfigAPI) {
     const fetchConfig = {
       ...headerDefault,
       ...headers,

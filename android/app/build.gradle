@@ -160,6 +160,9 @@ android {
                 }
             }
         }
+
+      testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+      testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     if (isNewArchitectureEnabled()) {
@@ -277,6 +280,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    androidTestImplementation('com.wix:detox:+')
+    androidTestImplementation 'com.linkedin.testbutler:test-butler-library:2.2.1'
+    androidTestUtil 'com.linkedin.testbutler:test-butler-app:2.2.1'
 }
 
 if (isNewArchitectureEnabled()) {
@@ -309,7 +315,7 @@ def isNewArchitectureEnabled() {
 }
 
 project.ext.vectoricons = [
-	iconFontNames: ['Ionicons.ttf'] //name of all the fonts added from node_modules in step 1.
+	iconFontNames: ['AntDesign.ttf'] //name of all the fonts added from node_modules in step 1.
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

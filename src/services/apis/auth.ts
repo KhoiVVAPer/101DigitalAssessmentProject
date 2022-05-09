@@ -16,8 +16,8 @@ export async function login(action: IRequestAction) {
       password: action.payload.password,
     },
     headers: {
+      Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
-      Accept: "application/x-www-form-urlencoded"
     },
   });
 }

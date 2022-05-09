@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 import { StatusBar, View } from "react-native";
-import { RNText, RNTextInput, RNButton } from "components";
+import { RNText, RNTextInput, RNButton, RNLoadingSpinner } from "components";
 import styles from "./Login.styles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { RNHeader } from "components/Header/Header";
 
 type LoginProps = {
   username: string;
   password: string;
   error: string;
+  isLoading: boolean;
   onSubmitLogin: (userName: string, password: string) => void;
   setUserName: (username: string) => void;
   setPassword: (password: string) => void;
@@ -17,14 +19,15 @@ const LoginView: FC<LoginProps> = ({
   username,
   password,
   error,
+  isLoading,
   onSubmitLogin,
   setUserName,
   setPassword,
 }): JSX.Element => {
   return (
     <SafeAreaView style={styles.container}>
+      <RNHeader title={"Login"} />
       <View testID={"login-container"} style={styles.contentWrapper}>
-        <RNText testID={"login-title"} text={"Login"} style={styles.title} />
         <RNTextInput
           testID={"login-username-input"}
           value={username}
@@ -52,6 +55,7 @@ const LoginView: FC<LoginProps> = ({
           onPress={() => onSubmitLogin(username, password)}
         />
       </View>
+      {isLoading && <RNLoadingSpinner />}
     </SafeAreaView>
   );
 };

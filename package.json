@@ -7,11 +7,15 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "detox-build-ios": "detox build --configuration ios",
+    "detox-build-android": "detox build --configuration android",
+    "detox-run-ios": "detox test --configuration ios --reuse",
+    "detox-run-android": "detox test --configuration android --reuse"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.3",
-    "@react-navigation/native": "5.9.4",
+    "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "5.14.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/axios": "0.14.0",
@@ -46,8 +50,10 @@
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "babel-jest": "^26.6.3",
+    "detox": "^19.6.9",
     "eslint": "^7.32.0",
-    "jest": "^26.6.3",
+    "jest": "26.0.0",
+    "jest-circus": "26.0.0",
     "metro-react-native-babel-preset": "^0.67.0",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.4.4"

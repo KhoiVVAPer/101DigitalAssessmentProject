@@ -365,7 +365,6 @@ PODS:
   - RNVectorIcons (9.1.0):
     - React-Core
   - SocketRocket (0.6.0)
-  - TrustKit (1.7.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -431,7 +430,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
-  - TrustKit
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -450,7 +448,6 @@ SPEC REPOS:
     - libevent
     - OpenSSL-Universal
     - SocketRocket
-    - TrustKit
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -580,10 +577,9 @@ SPEC CHECKSUMS:
   RNScreens: bf59f17fbf001f1025243eeed5f19419d3c11ef2
   RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
-  TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
   Yoga: 6671cf077f614314c22fd09ddf87d7abeee64e96
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: bf5f16c554fc0c4e22c5626ad84aa0035a96a183
+PODFILE CHECKSUM: bfaa54b89ba20c77019ea74ec45239fec69f7cb9
 
 COCOAPODS: 1.11.2

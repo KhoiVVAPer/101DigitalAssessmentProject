@@ -1,32 +1,42 @@
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RNText } from "components";
+import { CardInvoice, RNLoadingSpinner, RNText } from "components";
+import { RNHeader } from "components/Header/Header";
 import React, { FC } from "react";
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { MainStackParamList } from "../index";
+import { FlatList, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { IInvoice } from "interfaces/IInvoice";
 
-type DashboardViewProps = {};
+type DashboardViewProps = {
+  onInvoiceSelect: (invoice: IInvoice) => void;
+  invoiceData: IInvoice[];
+  isLoading: boolean;
+  onRefresh: () => void;
+  onPressAddBtn: () => void;
+};
 
-const DashboardView: FC<DashboardViewProps> = ({}): JSX.Element => {
-  const { goBack } = useNavigation<StackNavigationProp<MainStackParamList>>();
+const DashboardView: FC<DashboardViewProps> = ({
+  onInvoiceSelect,
+  invoiceData,
+  isLoading,
+  onRefresh,
+  onPressAddBtn,
+}): JSX.Element => {
   return (
-    <>
-    <TouchableOpacity onPress={() => goBack()} style={{width: 100, height: 100, backgroundColor: 'red', marginTop: 10, marginLeft: 10}}>
-    <RNText>Dashboard</RNText>
-
-    </TouchableOpacity>
-      {/* <FlatList
-        data={cryptoData}
-        keyExtractor={(item, index) => `ItemCrypto-${item.firstId}-${index}`}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onLoadCryptoData} />
-        }
-        onEndReached={onLoadMoreCryptoData}
-        onEndReachedThreshold={0.4}
-        renderItem={({ item }) => <View />}
-      /> */}
-    </>
+    <SafeAreaView style={{ flex: 1 }}>
+      <RNHeader
+        title={"Dashboard"}
+        rightIconName={"form"}
+        onPressRightIcon={onPressAddBtn}
+      />
+      <FlatList
+        data={invoiceData}
+        refreshing={false}
+        onRefresh={onRefresh}
+        renderItem={({ item }) => (
+          <CardInvoice data={item} onSelect={onInvoiceSelect} />
+        )}
+      />
+      {isLoading && <RNLoadingSpinner />}
+    </SafeAreaView>
   );
 };
 

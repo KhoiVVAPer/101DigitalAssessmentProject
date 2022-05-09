@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
-import fonts from '@constants/fonts';
-import { scale } from '@constants/scale';
-import { PRIMARY, WHITE } from '@constants/colors';
+import React, { FC } from "react";
+import fonts from "@constants/fonts";
+import { scale } from "@constants/scale";
+import { PRIMARY, WHITE } from "@constants/colors";
 import {
   StyleSheet,
   TouchableOpacity,
   Text,
   ViewStyle,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 
 type ButtonProps = {
   text?: string;
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     paddingVertical: scale(10),
     paddingHorizontal: scale(15),
     minWidth: scale(200),
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: scale(15),
   },
 });

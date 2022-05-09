@@ -8,11 +8,13 @@
  * @format
  */
 
-import React from 'react';
-import {Provider} from 'react-redux';
-import Router from 'navigation/Router';
-import store from '@redux/configureStore';
-import Icon from 'react-native-vector-icons/Ionicons';
+import "react-native-gesture-handler";
+
+import React from "react";
+import { Provider } from "react-redux";
+import Router from "navigation/Router";
+import store from "@redux/configureStore";
+import Icon from "react-native-vector-icons/AntDesign";
 Icon.loadFont();
 
 const App = () => {
