@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface SliceAuthState {
-  error: string;
+  isError: boolean;
   isLogged: boolean;
   isLoading: boolean;
 }
@@ -10,7 +10,7 @@ interface SliceAuthState {
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    error: "",
+    isError: false,
     isLogged: false,
     isLoading: false,
   } as SliceAuthState,
@@ -19,7 +19,7 @@ const authSlice = createSlice({
       state,
       action: PayloadAction<{ username: string; password: string }>
     ) => {
-      state.error = "";
+      state.isError = false;
       state.isLogged = false;
       state.isLoading = true;
     },
@@ -35,7 +35,7 @@ const authSlice = createSlice({
       AsyncStorage.setItem("access_token", access_token);
       AsyncStorage.setItem("refresh_token", refresh_token);
       AsyncStorage.setItem("token_type", token_type);
-      state.error = "";
+      state.isError = false;
       state.isLogged = true;
       state.isLoading = false;
     },
@@ -43,12 +43,12 @@ const authSlice = createSlice({
       AsyncStorage.removeItem("access_token");
       AsyncStorage.removeItem("refresh_token");
       AsyncStorage.removeItem("token_type");
-      state.error = "";
+      state.isError = false;
       state.isLogged = false;
       state.isLoading = false;
     },
-    loginFailed: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+    loginFailed: (state) => {
+      state.isError = true;
       state.isLogged = false;
       state.isLoading = false;
     },

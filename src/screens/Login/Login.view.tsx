@@ -8,7 +8,7 @@ import { RNHeader } from "components/Header/Header";
 type LoginProps = {
   username: string;
   password: string;
-  error: string;
+  isError: boolean;
   isLoading: boolean;
   onSubmitLogin: (userName: string, password: string) => void;
   setUserName: (username: string) => void;
@@ -18,7 +18,7 @@ type LoginProps = {
 const LoginView: FC<LoginProps> = ({
   username,
   password,
-  error,
+  isError,
   isLoading,
   onSubmitLogin,
   setUserName,
@@ -26,26 +26,27 @@ const LoginView: FC<LoginProps> = ({
 }): JSX.Element => {
   return (
     <SafeAreaView style={styles.container}>
-      <RNHeader title={"Login"} />
+      <RNHeader title={"Login"} testId={"header-login"} />
       <View testID={"login-container"} style={styles.contentWrapper}>
         <RNTextInput
           testID={"login-username-input"}
           value={username}
           onChangeText={setUserName}
-          placeholder={"input username"}
+          placeholder={"username"}
           style={styles.input}
         />
         <RNTextInput
           testID={"login-password-input"}
           value={password}
           onChangeText={setPassword}
-          placeholder={"input password"}
+          placeholder={"password"}
           style={styles.input}
+          isSecure={true}
         />
-        {error ? (
+        {isError ? (
           <RNText
             testID={"login-error"}
-            text={error}
+            text={"Login Failed"}
             style={styles.errorText}
           />
         ) : null}

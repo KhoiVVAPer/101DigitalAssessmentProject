@@ -8,6 +8,7 @@ import _ from "lodash";
 type SearchInputFieldProps = {
   placeholder?: string;
   value?: string;
+  testId?: string;
   disabled?: boolean;
   onChangeText: (input: string) => void;
   onSubmitEditing?: (input: string) => void;
@@ -15,6 +16,7 @@ type SearchInputFieldProps = {
 export const SearchInputField: React.FC<SearchInputFieldProps> = ({
   placeholder,
   value,
+  testId,
   disabled,
   onChangeText,
   onSubmitEditing,
@@ -61,6 +63,7 @@ export const SearchInputField: React.FC<SearchInputFieldProps> = ({
         )}
 
         <TextInput
+          testID={testId}
           onFocus={onFocus}
           onBlur={onBlur}
           style={[
@@ -76,7 +79,11 @@ export const SearchInputField: React.FC<SearchInputFieldProps> = ({
           onSubmitEditing={onSubmit}
         />
         {!isShowSearchIcon && (
-          <TouchableOpacity onPress={onClearInput} style={styles.btnDelete}>
+          <TouchableOpacity
+            testID={`${testId}-btn-clear`}
+            onPress={onClearInput}
+            style={styles.btnDelete}
+          >
             <Icon name="close" size={24} color={GRAY_LIGHT} />
           </TouchableOpacity>
         )}

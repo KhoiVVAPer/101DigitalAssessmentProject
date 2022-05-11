@@ -13,11 +13,13 @@ type HeaderProps = {
   leftIconName?: string;
   title: string;
   canGoBack?: boolean;
+  testId: string;
   leftIconNameTitle?: string;
 };
 
 export const RNHeader: FC<HeaderProps> = ({
   title,
+  testId,
   rightIconName,
   onPressRightIcon,
   canGoBack,
@@ -27,13 +29,17 @@ export const RNHeader: FC<HeaderProps> = ({
 }): JSX.Element => {
   const { goBack } = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testId}>
       <View style={styles.titleContainer}>
         <RNText text={title} style={styles.textDefaultStyles} />
       </View>
 
       {canGoBack && (
-        <TouchableOpacity style={styles.leftBtn} onPress={goBack}>
+        <TouchableOpacity
+          style={styles.leftBtn}
+          onPress={goBack}
+          testID={`${testId}-btn-go-back`}
+        >
           <View>
             <Icon name="arrowleft" size={30} color={BLACK} />
           </View>
@@ -41,7 +47,11 @@ export const RNHeader: FC<HeaderProps> = ({
       )}
 
       {leftIconName && (
-        <TouchableOpacity style={styles.leftBtn} onPress={onPressLeftIcon}>
+        <TouchableOpacity
+          testID={`${testId}-btn-left`}
+          style={styles.leftBtn}
+          onPress={onPressLeftIcon}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -57,7 +67,11 @@ export const RNHeader: FC<HeaderProps> = ({
       )}
 
       {rightIconName && (
-        <TouchableOpacity style={styles.rightBtn} onPress={onPressRightIcon}>
+        <TouchableOpacity
+          style={styles.rightBtn}
+          onPress={onPressRightIcon}
+          testID={`${testId}-btn-right`}
+        >
           <View>
             <Icon style={styles.iconBtn} name={rightIconName} size={30} />
           </View>

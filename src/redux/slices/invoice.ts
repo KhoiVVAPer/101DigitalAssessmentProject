@@ -10,7 +10,7 @@ import {
 } from "../../interfaces/Enum";
 
 interface SliceInvoiceState {
-  error: string;
+  isError: boolean;
   isLoading: boolean;
   invoices: IInvoice[];
   pageNum: number;
@@ -26,7 +26,7 @@ interface SliceInvoiceState {
 const invoiceSlice = createSlice({
   name: "invoice",
   initialState: {
-    error: "",
+    isError: false,
     invoices: {},
     isLoading: false,
     pageNum: 1,
@@ -39,18 +39,17 @@ const invoiceSlice = createSlice({
   } as SliceInvoiceState,
   reducers: {
     getInvoicesRequest: (state) => {
-      state.error = "";
+      state.isError = false;
       state.isLoading = true;
     },
 
     getInvoicesSuccess: (state, action: PayloadAction<IInvoice[]>) => {
-      state.error = "";
       state.invoices = action.payload;
       state.isLoading = false;
     },
 
-    getInvoicesFailed: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+    getInvoicesFailed: (state) => {
+      state.isError = true;
       state.isLoading = false;
     },
 
@@ -66,20 +65,17 @@ const invoiceSlice = createSlice({
       state,
       action: PayloadAction<ICreateInvoiceRequest>
     ) => {
-      state.error = "";
       state.isLoading = true;
       state.createInvoiceState = CreateInvoiceState.REQUESTING;
     },
 
     createInvoiceSuccess: (state, action: PayloadAction<IInvoice>) => {
-      state.error = "";
       state.invoices = [action.payload, ...state.invoices];
       state.isLoading = false;
       state.createInvoiceState = CreateInvoiceState.SUCCESS;
     },
 
     createInvoiceFailed: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
       state.isLoading = false;
       state.createInvoiceState = CreateInvoiceState.FAILED;
     },

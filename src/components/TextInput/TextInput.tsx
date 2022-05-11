@@ -1,12 +1,13 @@
-import { PRIMARY } from '@constants/colors';
-import { scale } from '@constants/scale';
-import React, { FC } from 'react';
-import { StyleSheet, TextInput, TextStyle } from 'react-native';
+import { PRIMARY } from "@constants/colors";
+import { scale } from "@constants/scale";
+import React, { FC } from "react";
+import { StyleSheet, TextInput, TextStyle } from "react-native";
 
 interface TextInputProps {
   value?: string;
   testID?: string;
   style?: TextStyle;
+  isSecure?: boolean;
   placeholder?: string;
   onChangeText?: (txt: string) => void;
 }
@@ -15,12 +16,14 @@ export const RNTextInput: FC<TextInputProps> = ({
   style,
   testID,
   value,
+  isSecure,
   onChangeText,
-  placeholder = 'enter input here',
+  placeholder = "enter input here",
 }): JSX.Element => {
   return (
     <TextInput
       testID={testID}
+      secureTextEntry={isSecure}
       style={[styles.defaultTextInputStyles, style]}
       placeholder={placeholder}
       value={value}

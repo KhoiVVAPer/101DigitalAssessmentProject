@@ -44,25 +44,35 @@ const DashboardView: FC<DashboardViewProps> = ({
         leftIconName={"logout"}
         onPressLeftIcon={onLogout}
         leftIconNameTitle={"logout"}
+        testId={"header-dashboard"}
       />
       <View style={styles.row}>
         <SearchInputField
+          testId={"dashboard-search-input"}
           placeholder="Enter invoice number here"
           onChangeText={onSearchInvoice}
         />
-        <TouchableOpacity onPress={changeOrderingInvoice}>
+        <TouchableOpacity
+          testID="dashboard-sort-btn"
+          onPress={changeOrderingInvoice}
+        >
           <Icon name="swap" style={styles.iconOrdering} size={30} />
         </TouchableOpacity>
       </View>
       <FlatList
+        testID="dashboard-list-invoice"
         data={invoiceData}
         refreshing={false}
         onRefresh={onRefresh}
-        renderItem={({ item }) => (
-          <CardInvoice data={item} onSelect={onInvoiceSelect} />
+        renderItem={({ item, index }) => (
+          <CardInvoice
+            testId={`invoice-row-${index}`}
+            data={item}
+            onSelect={onInvoiceSelect}
+          />
         )}
       />
-      {isLoading && <RNLoadingSpinner />}
+      {isLoading && <RNLoadingSpinner testId="dashboard-loading-spinner" />}
     </SafeAreaView>
   );
 };

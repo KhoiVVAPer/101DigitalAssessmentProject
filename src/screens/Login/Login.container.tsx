@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react";
 import LoginView from "./Login.view";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectErrorState,
+  selectIsErrorState,
   selectIsLoadingState as selectIsLoadingTokenState,
   selectIsLoggedState,
 } from "@redux/selectors/auth";
@@ -20,7 +20,7 @@ const LoginScreen: FC = (): JSX.Element => {
   const isLoadedUserInfo = useSelector(selectIsLoadedUserInfoState);
   const isLoadingToken = useSelector(selectIsLoadingTokenState);
   const isLoadingUserInfo = useSelector(selectIsLoadingUserInfoState);
-  const error = useSelector(selectErrorState);
+  const isError = useSelector(selectIsErrorState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,8 +37,8 @@ const LoginScreen: FC = (): JSX.Element => {
   const onSubmitLogin = () => {
     dispatch(
       loginRequest({
-        username: "dung+octopus4@101digital.io",
-        password: "Abc@123456",
+        username: username,
+        password: password,
       })
     );
   };
@@ -51,7 +51,7 @@ const LoginScreen: FC = (): JSX.Element => {
       setPassword={setPassword}
       onSubmitLogin={onSubmitLogin}
       isLoading={isLoadingToken || isLoadingUserInfo}
-      error={error}
+      isError={isError}
     />
   );
 };

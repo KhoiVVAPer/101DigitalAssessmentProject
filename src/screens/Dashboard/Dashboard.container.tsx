@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import {
   selectInvoicesState,
+  selectIsErrorState,
   selectIsLoadingState,
   selectKeywordState,
   selectOrderInvoiceState,
@@ -29,6 +30,13 @@ const DashboardScreen: FC = (): JSX.Element => {
   const ordering = useSelector(selectOrderInvoiceState);
   const keyword = useSelector(selectKeywordState);
   const isLogged = useSelector(selectIsLoggedState);
+  const isError = useSelector(selectIsErrorState);
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(logoutRequest());
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (isLogged) {

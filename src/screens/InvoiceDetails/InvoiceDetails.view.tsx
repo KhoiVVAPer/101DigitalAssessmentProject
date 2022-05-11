@@ -2,13 +2,15 @@ import { WHITE } from "@constants/colors";
 import fonts from "@constants/fonts";
 import { RNButton, RNInputField, RNLoadingSpinner, RNText } from "components";
 import { RNHeader } from "components/Header/Header";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { StyleSheet, Keyboard, KeyboardAvoidingView } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IInvoice } from "src/interfaces/IInvoice";
 import DatePicker from "react-native-date-picker";
 import { format } from "date-fns";
+import { useSelector } from "react-redux";
+import { selectIsErrorState } from "@redux/selectors/invoice";
 
 type InvoiceDetailsViewProps = {
   data?: IInvoice;
@@ -38,6 +40,12 @@ const InvoiceDetailsView: FC<InvoiceDetailsViewProps> = ({
     isViewMode ? data.invoiceNumber : `INV${randomItemRef}`
   );
   const [open, setOpen] = useState(false);
+  const isError = useSelector(selectIsErrorState);
+
+  useEffect(() => {
+    if (isError) {
+    }
+  }, [isError]);
 
   const onSave = () => {
     onCreateInvoice(
@@ -51,6 +59,7 @@ const InvoiceDetailsView: FC<InvoiceDetailsViewProps> = ({
   return (
     <SafeAreaView>
       <RNHeader
+        testId={isViewMode ? "header-invoice-details" : "header-create-invoice"}
         title={isViewMode ? "Invoice Details" : "Create Invoice"}
         canGoBack={true}
       />
@@ -74,13 +83,14 @@ const InvoiceDetailsView: FC<InvoiceDetailsViewProps> = ({
             onPress={() => setOpen(true)}
           />
           <RNInputField
+            testId={"invoice-details-descriptions-input"}
             disabled={isViewMode}
             onChangeText={setDescription}
             placeholder="Description"
             value={descriptions}
           />
           {!isViewMode && (
-            <RNButton onPress={onSave}>
+            <RNButton onPress={onSave} testID={"invoice-details-save-btn"}>
               <RNText style={styles.btnText} text={"Create"} />
             </RNButton>
           )}

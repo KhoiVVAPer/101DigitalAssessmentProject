@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+    fontSize: fonts.sizes?.small,
   },
   btnText: {
     ...fonts.types.normalText,

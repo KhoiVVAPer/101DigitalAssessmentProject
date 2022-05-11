@@ -5,22 +5,28 @@ import { IInvoice } from "interfaces/IInvoice";
 
 type CardInvoiceProps = {
   data: IInvoice;
+  testId: string;
   onSelect: (item: IInvoice) => void;
 };
 
 export const CardInvoice: FC<CardInvoiceProps> = ({
   data,
+  testId,
   onSelect,
 }): JSX.Element => {
   const renderInfoRow = (title: string, content: string | number) => (
     <View style={styles.rowInfo}>
-      <RNText style={styles.title} text={`${title}: `} />
-      <RNText text={`${content}`} />
+      <RNText
+        testID={`${testId}-${title}-title`}
+        style={styles.title}
+        text={`${title}: `}
+      />
+      <RNText testID={`${testId}-${title}-value`} text={`${content}`} />
     </View>
   );
 
   return (
-    <TouchableOpacity onPress={() => onSelect(data)}>
+    <TouchableOpacity onPress={() => onSelect(data)} testID={testId}>
       <View style={styles.container}>
         {renderInfoRow("invoiceNumber", data.invoiceNumber)}
         {renderInfoRow("references", data.itemReference)}

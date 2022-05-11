@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 type InputFieldProps = {
   placeholder?: string;
   value?: string;
+  testId?: string;
   error?: string;
   disabled?: boolean;
   isError?: boolean;
@@ -19,6 +20,7 @@ export const RNInputField: React.FC<InputFieldProps> = ({
   placeholder,
   value = "",
   error,
+  testId,
   disabled,
   isError,
   onPress,
@@ -65,6 +67,7 @@ export const RNInputField: React.FC<InputFieldProps> = ({
           </View>
         ) : (
           <TextInput
+            testID={testId}
             onFocus={onFocus}
             onBlur={onBlur}
             style={[

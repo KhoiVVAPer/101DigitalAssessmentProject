@@ -29,10 +29,10 @@ export function* handlerGetInvoices(action: IRequestAction) {
     if (response && response.status === 200) {
       yield put(getInvoicesSuccess(listInvoiceParser(response.data)));
     } else {
-      yield put(getInvoicesFailed(response.statusText));
+      yield put(getInvoicesFailed());
     }
   } catch (error) {
-    console.log("error", error);
+    yield put(getInvoicesFailed());
   }
 }
 
