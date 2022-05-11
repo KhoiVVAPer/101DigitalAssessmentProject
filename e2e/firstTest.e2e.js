@@ -4,10 +4,10 @@ describe("Example", () => {
   });
 
   it("should render login", async () => {
-    await expect(true);
+    await expect(element(by.id("login-button-login"))).toBeVisible();
   });
 
-  // it('should have "See Your Changes" section', async () => {
-  //   await element(by.id("login-button-login")).tap();
-  // });
+  it('should have "See Your Changes" section', async () => {
+    await element(by.id("login-button-login")).tap();
+  });
 });
