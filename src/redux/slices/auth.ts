@@ -7,13 +7,15 @@ interface SliceAuthState {
   isLoading: boolean;
 }
 
+const initialState: SliceAuthState = {
+  isError: false,
+  isLogged: false,
+  isLoading: false,
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    isError: false,
-    isLogged: false,
-    isLoading: false,
-  } as SliceAuthState,
+  initialState,
   reducers: {
     loginRequest: (
       state,
@@ -39,13 +41,13 @@ const authSlice = createSlice({
       state.isLogged = true;
       state.isLoading = false;
     },
-    logoutRequest: (state) => {
+    logoutRequest: () => {
       AsyncStorage.removeItem("access_token");
       AsyncStorage.removeItem("refresh_token");
       AsyncStorage.removeItem("token_type");
-      state.isError = false;
-      state.isLogged = false;
-      state.isLoading = false;
+      return {
+        ...initialState,
+      };
     },
     loginFailed: (state) => {
       state.isError = true;

@@ -6,8 +6,15 @@ interface SliceUserState {
   error: string;
   isLoading: boolean;
   isLoaded: boolean;
-  userInfo: IUser;
+  userInfo?: IUser;
 }
+
+const initialState: SliceUserState = {
+  error: "",
+  userInfo: undefined,
+  isLoaded: false,
+  isLoading: false,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -39,10 +46,19 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.isLoaded = false;
     },
+    reset() {
+      return {
+        ...initialState,
+      };
+    },
   },
 });
 
-export const { getUserInfoRequest, getUserInfoSuccess, getUserInfoFailed } =
-  userSlice.actions;
+export const {
+  getUserInfoRequest,
+  getUserInfoSuccess,
+  getUserInfoFailed,
+  reset,
+} = userSlice.actions;
 const userReducer = userSlice.reducer;
 export default userReducer;

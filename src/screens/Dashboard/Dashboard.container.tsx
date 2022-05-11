@@ -9,6 +9,7 @@ import {
 } from "@redux/selectors/invoice";
 import {
   getInvoicesRequest,
+  reset as resetInvoice,
   setKeywordSearching,
   setOrdering,
 } from "@redux/slices/invoice";
@@ -20,6 +21,7 @@ import { InvoiceStackParamList } from "..";
 import DashboardView from "./Dashboard.view";
 import { logoutRequest } from "@redux/slices/auth";
 import { selectIsLoggedState } from "@redux/selectors/auth";
+import { reset as resetUser } from "@redux/slices/user";
 
 const DashboardScreen: FC = (): JSX.Element => {
   const { navigate } =
@@ -34,7 +36,7 @@ const DashboardScreen: FC = (): JSX.Element => {
 
   useEffect(() => {
     if (isError) {
-      dispatch(logoutRequest());
+      onLogout();
     }
   }, [isError]);
 
@@ -53,6 +55,8 @@ const DashboardScreen: FC = (): JSX.Element => {
   };
 
   const onLogout = () => {
+    dispatch(resetInvoice());
+    dispatch(resetUser());
     dispatch(logoutRequest());
   };
 

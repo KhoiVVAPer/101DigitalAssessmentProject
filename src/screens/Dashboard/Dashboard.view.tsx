@@ -49,7 +49,7 @@ const DashboardView: FC<DashboardViewProps> = ({
       <View style={styles.row}>
         <SearchInputField
           testId={"dashboard-search-input"}
-          placeholder="Enter invoice number here"
+          placeholder="Search"
           onChangeText={onSearchInvoice}
         />
         <TouchableOpacity

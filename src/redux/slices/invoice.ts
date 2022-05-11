@@ -1,3 +1,4 @@
+import { LIMIT_RECORD_LOAD_LIST_DATA } from "@constants/common";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   ICreateInvoiceRequest,
@@ -20,23 +21,24 @@ interface SliceInvoiceState {
   keyword: string;
   ordering: OrderingInvoiceState;
   createInvoiceState: CreateInvoiceState;
-  requestParams: IGetInvoiceRequest;
 }
+
+const initialState: SliceInvoiceState = {
+  isError: false,
+  invoices: [],
+  isLoading: false,
+  pageNum: 1,
+  pageSize: LIMIT_RECORD_LOAD_LIST_DATA,
+  dateType: "INVOICE_DATE",
+  sortBy: "CREATED_DATE",
+  keyword: "",
+  ordering: OrderingInvoiceState.DESCENDING,
+  createInvoiceState: CreateInvoiceState.WAIT,
+};
 
 const invoiceSlice = createSlice({
   name: "invoice",
-  initialState: {
-    isError: false,
-    invoices: {},
-    isLoading: false,
-    pageNum: 1,
-    pageSize: 100,
-    dateType: "INVOICE_DATE",
-    sortBy: "CREATED_DATE",
-    keyword: "",
-    ordering: OrderingInvoiceState.DESCENDING,
-    createInvoiceState: CreateInvoiceState.WAIT,
-  } as SliceInvoiceState,
+  initialState,
   reducers: {
     getInvoicesRequest: (state) => {
       state.isError = false;
@@ -45,6 +47,7 @@ const invoiceSlice = createSlice({
 
     getInvoicesSuccess: (state, action: PayloadAction<IInvoice[]>) => {
       state.invoices = action.payload;
+      state.pageNum = 1;
       state.isLoading = false;
     },
 
@@ -83,6 +86,11 @@ const invoiceSlice = createSlice({
     resetCreateInvoiceState: (state) => {
       state.createInvoiceState = CreateInvoiceState.WAIT;
     },
+    reset() {
+      return {
+        ...initialState,
+      };
+    },
   },
 });
 
@@ -95,6 +103,7 @@ export const {
   createInvoiceFailed,
   setKeywordSearching,
   setOrdering,
+  reset,
   resetCreateInvoiceState,
 } = invoiceSlice.actions;
 const invoiceReducer = invoiceSlice.reducer;
