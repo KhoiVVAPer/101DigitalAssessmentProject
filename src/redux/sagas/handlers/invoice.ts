@@ -40,7 +40,6 @@ export function* handlerCreateInvoices(action: IRequestAction) {
   try {
     const response = yield* call(createInvoices, action);
     if (response && response.status === 200) {
-      console.log("response", response);
       yield put(
         createInvoiceSuccess(
           invoiceParser(response.data.data as IInvoiceResponse)

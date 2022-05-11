@@ -66,8 +66,6 @@ export default function Router() {
     );
   };
 
-  console.log("isAuthenticated", isAuthenticated);
-
   return (
     <NavigationContainer ref={navigationRef}>
       <SafeAreaProvider>

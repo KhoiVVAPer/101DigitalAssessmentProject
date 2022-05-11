@@ -25,7 +25,6 @@ const InvoiceDetailsScreen: FC = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("createInvoiceState -> ", createInvoiceState);
     if (createInvoiceState === CreateInvoiceState.SUCCESS) {
       dispatch(resetCreateInvoiceState());
       goBack();

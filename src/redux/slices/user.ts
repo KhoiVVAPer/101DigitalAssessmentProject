@@ -32,7 +32,6 @@ const userSlice = createSlice({
     },
     getUserInfoSuccess: (state, action: PayloadAction<{ data: IUser }>) => {
       const { data } = action.payload;
-      console.log("getUserInfoSuccess", data);
       if (data?.memberships && data?.memberships.length > 0) {
         AsyncStorage.setItem("org_token", data?.memberships[0].token);
       }

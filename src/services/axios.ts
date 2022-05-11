@@ -15,7 +15,6 @@ axiosClient.interceptors.request.use(
     const token = await AsyncStorage.getItem("access_token");
     const tokenType = await AsyncStorage.getItem("token_type");
 
-    console.log("token", token);
     if (token) {
       request.headers = {
         ...request.headers,

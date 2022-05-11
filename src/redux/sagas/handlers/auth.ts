@@ -6,10 +6,8 @@ import axios, { AxiosError } from "axios";
 
 export function* handlerLogin(action: IRequestAction) {
   try {
-    console.log("handlerLogin");
     const response = yield* call(login, action);
     if (response && response.status === 200) {
-      console.log("response", response);
       yield put(loginSuccess(response.data));
     } else {
       yield put(loginFailed());

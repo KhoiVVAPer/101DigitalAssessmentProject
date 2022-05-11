@@ -5,7 +5,6 @@ import { getUserInfo } from "services/apis/user";
 
 export function* handlerGetUserInfo(action: IRequestAction) {
   try {
-    console.log("handlerGetUserInfo", action);
     const response = yield* call(getUserInfo, action);
     if (response && response.status === 200) {
       yield put(getUserInfoSuccess(response.data));

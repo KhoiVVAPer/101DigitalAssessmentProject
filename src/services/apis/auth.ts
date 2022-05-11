@@ -4,8 +4,6 @@ import { IRequestAction } from "src/interfaces/IRequestAction";
 import { CLIENT_ID, CLIENT_SECRET } from "@env";
 
 export async function login(action: IRequestAction) {
-  console.log("login request", GET_TOKEN_URL);
-
   return APIUtils.post(GET_TOKEN_URL, {
     body: {
       client_id: CLIENT_ID,

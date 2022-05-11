@@ -69,12 +69,10 @@ const DashboardScreen: FC = (): JSX.Element => {
   };
 
   const onSearchInvoice = (searchText: string) => {
-    console.log("onSearchInvoice -> searchText", searchText);
     dispatch(setKeywordSearching(searchText));
   };
 
   const changeOrderingInvoice = () => {
-    console.log("changeOrderingInvoice", ordering);
     dispatch(
       setOrdering(
         ordering === OrderingInvoiceState.ASCENDING
