@@ -1,29 +1,21 @@
-import React, { FC } from "react";
-import fonts from "@constants/fonts";
+import React, { FC, ReactChild, ReactChildren } from "react";
 import { scale } from "@constants/scale";
-import { PRIMARY, WHITE } from "@constants/colors";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
+import { PRIMARY } from "@constants/colors";
+import { StyleSheet, ViewStyle } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type ButtonProps = {
-  text?: string;
   testID?: string;
   onPress?: () => void;
   btnStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  children: ReactChild | ReactChildren;
 };
 
 export const RNButton: FC<ButtonProps> = ({
   btnStyle,
-  textStyle,
   onPress,
-  text,
   testID,
+  children,
 }): JSX.Element => {
   return (
     <TouchableOpacity
@@ -31,16 +23,12 @@ export const RNButton: FC<ButtonProps> = ({
       style={[styles.btnDefaultStyles, btnStyle]}
       onPress={onPress}
     >
-      <Text style={[styles.textDefaultStyles, textStyle]}>{text}</Text>
+      {children}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  textDefaultStyles: {
-    ...fonts.types.normalText,
-    color: WHITE,
-  },
   btnDefaultStyles: {
     backgroundColor: PRIMARY,
     paddingVertical: scale(10),
@@ -48,5 +36,6 @@ const styles = StyleSheet.create({
     minWidth: scale(200),
     alignItems: "center",
     marginTop: scale(15),
+    borderRadius: scale(5),
   },
 });

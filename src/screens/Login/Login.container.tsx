@@ -6,9 +6,6 @@ import {
   selectIsLoadingState as selectIsLoadingTokenState,
   selectIsLoggedState,
 } from "@redux/selectors/auth";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { MainStackParamList } from "..";
 import { loginRequest } from "@redux/slices/auth";
 import { getUserInfoRequest } from "@redux/slices/user";
 import {
@@ -24,7 +21,6 @@ const LoginScreen: FC = (): JSX.Element => {
   const isLoadingToken = useSelector(selectIsLoadingTokenState);
   const isLoadingUserInfo = useSelector(selectIsLoadingUserInfoState);
   const error = useSelector(selectErrorState);
-  const { navigate } = useNavigation<StackNavigationProp<MainStackParamList>>();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +28,6 @@ const LoginScreen: FC = (): JSX.Element => {
       if (isLoadedUserInfo) {
         setUsername("");
         setPassword("");
-        navigate("MainStack");
       } else {
         dispatch(getUserInfoRequest());
       }

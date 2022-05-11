@@ -51,9 +51,10 @@ const LoginView: FC<LoginProps> = ({
         ) : null}
         <RNButton
           testID={"login-button-login"}
-          text={"Login"}
           onPress={() => onSubmitLogin(username, password)}
-        />
+        >
+          <RNText text="Login" style={styles.btnText} />
+        </RNButton>
       </View>
       {isLoading && <RNLoadingSpinner />}
     </SafeAreaView>

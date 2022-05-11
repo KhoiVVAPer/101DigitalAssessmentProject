@@ -161,8 +161,8 @@ android {
             }
         }
 
-      testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
-      testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testBuildType System.getProperty('testBuildType', 'debug')
+        testInstrumentationRunner 'com.assessmentproject.DetoxTestAppJUnitRunner'
     }
 
     if (isNewArchitectureEnabled()) {
@@ -282,7 +282,6 @@ dependencies {
     }
     androidTestImplementation('com.wix:detox:+')
     androidTestImplementation 'com.linkedin.testbutler:test-butler-library:2.2.1'
-    androidTestUtil 'com.linkedin.testbutler:test-butler-app:2.2.1'
 }
 
 if (isNewArchitectureEnabled()) {

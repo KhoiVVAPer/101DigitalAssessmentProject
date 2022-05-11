@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import fonts from '@constants/fonts';
-import { StyleSheet, Text, TextStyle } from 'react-native';
+import React, { FC } from "react";
+import fonts from "@constants/fonts";
+import { StyleSheet, Text, TextStyle } from "react-native";
 
 type RNTextProps = {
-  text?: string;
+  text: string;
   testID?: string;
   style?: TextStyle;
 };

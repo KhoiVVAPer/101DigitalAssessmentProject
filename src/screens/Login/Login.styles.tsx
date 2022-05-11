@@ -1,3 +1,5 @@
+import { WHITE } from "@constants/colors";
+import fonts from "@constants/fonts";
 import { scale } from "@constants/scale";
 import { StyleSheet } from "react-native";
 
@@ -18,6 +20,10 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+  },
+  btnText: {
+    ...fonts.types.normalText,
+    color: WHITE,
   },
 });
 

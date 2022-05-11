@@ -1,8 +1,7 @@
 import axiosClient from "services/axios";
 import qs from "qs";
-import axios from "axios";
 
-const buildURLWithParams = (url: string, params: Record<string, any>) => {
+const buildURLWithParams = (url: string, params: Record<string, string>) => {
   let requestedURL = url;
   if (params) {
     const keys = Object.keys(params);
@@ -22,14 +21,14 @@ const buildURLWithParams = (url: string, params: Record<string, any>) => {
 };
 
 interface IConfigAPI {
-  headers?: Record<string, any>;
-  params?: Record<string, any>;
-  body?: Record<string, any>;
+  headers?: object;
+  params?: Record<string, string>;
+  body?: object;
+  isNeedParser?: boolean;
 }
 
 const headerDefault = {
   "Content-Type": "application/json",
-  Accept: "application/json; charset=utf-8",
 };
 
 export default class APIUtils {
@@ -39,16 +38,21 @@ export default class APIUtils {
       ...headerDefault,
       ...headers,
     };
-    return axiosClient.get(requestedUrl, { headers: fetchConfig });
+    return axiosClient.get(requestedUrl, {
+      headers: fetchConfig,
+    });
   }
 
-  static async post(url: string, { headers = {}, body = {} }: IConfigAPI) {
+  static async post(
+    url: string,
+    { headers = {}, body = {}, isNeedParser = false }: IConfigAPI
+  ) {
     const fetchConfig = {
       ...headerDefault,
       ...headers,
     };
 
-    return axiosClient.post(url, qs.stringify(body), {
+    return axiosClient.post(url, isNeedParser ? qs.stringify(body) : body, {
       headers: fetchConfig,
     });
   }

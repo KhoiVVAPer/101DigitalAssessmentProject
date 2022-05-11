@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface SliceAuthState {
   error: string;
@@ -31,12 +31,20 @@ const authSlice = createSlice({
         token_type: string;
       }>
     ) => {
-      const {access_token, refresh_token, token_type  } = action.payload;
-      AsyncStorage.setItem('access_token', access_token);
-      AsyncStorage.setItem('refresh_token', refresh_token);
-      AsyncStorage.setItem('token_type', token_type);
+      const { access_token, refresh_token, token_type } = action.payload;
+      AsyncStorage.setItem("access_token", access_token);
+      AsyncStorage.setItem("refresh_token", refresh_token);
+      AsyncStorage.setItem("token_type", token_type);
       state.error = "";
       state.isLogged = true;
+      state.isLoading = false;
+    },
+    logoutRequest: (state) => {
+      AsyncStorage.removeItem("access_token");
+      AsyncStorage.removeItem("refresh_token");
+      AsyncStorage.removeItem("token_type");
+      state.error = "";
+      state.isLogged = false;
       state.isLoading = false;
     },
     loginFailed: (state, action: PayloadAction<string>) => {
@@ -47,6 +55,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailed } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailed, logoutRequest } =
+  authSlice.actions;
 const authReducer = authSlice.reducer;
 export default authReducer;

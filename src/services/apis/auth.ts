@@ -19,5 +19,6 @@ export async function login(action: IRequestAction) {
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
     },
+    isNeedParser: true,
   });
 }

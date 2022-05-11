@@ -13,23 +13,20 @@ import { IInvoiceResponse } from "src/interfaces/IAxiosResponse";
 
 export function* handlerGetInvoices(action: IRequestAction) {
   try {
-    const { pageNum, pageSize } = yield select(
-      (state: RootState) => state.invoice
-    );
-
+    const { pageNum, pageSize, dateType, sortBy, ordering, keyword } =
+      yield select((state: RootState) => state.invoice);
     action.payload = {
-      ...action.payload,
+      keyword,
       pageNum,
       pageSize,
-      dateType: "INVOICE_DATE",
-      sortBy: "CREATED_DATE",
-      ordering: "ASCENDING",
+      dateType,
+      sortBy,
+      ordering,
     };
 
     const response = yield* call(getInvoices, action);
 
     if (response && response.status === 200) {
-      console.log("response", response);
       yield put(getInvoicesSuccess(listInvoiceParser(response.data)));
     } else {
       yield put(getInvoicesFailed(response.statusText));
@@ -41,13 +38,13 @@ export function* handlerGetInvoices(action: IRequestAction) {
 
 export function* handlerCreateInvoices(action: IRequestAction) {
   try {
-    console.log("handlerCreateInvoices", action);
-    const response = yield* call(createInvoices, action.payload);
-
+    const response = yield* call(createInvoices, action);
     if (response && response.status === 200) {
       console.log("response", response);
       yield put(
-        createInvoiceSuccess(invoiceParser(response.data as IInvoiceResponse))
+        createInvoiceSuccess(
+          invoiceParser(response.data.data as IInvoiceResponse)
+        )
       );
     } else {
       yield put(createInvoiceFailed(response.statusText));

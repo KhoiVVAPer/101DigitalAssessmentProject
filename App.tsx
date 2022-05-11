@@ -13,14 +13,17 @@ import "react-native-gesture-handler";
 import React from "react";
 import { Provider } from "react-redux";
 import Router from "navigation/Router";
-import store from "@redux/configureStore";
+import { store, persistor } from "@redux/configureStore";
 import Icon from "react-native-vector-icons/AntDesign";
+import { PersistGate } from "redux-persist/integration/react";
 Icon.loadFont();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Router />
+      <PersistGate loading={null} persistor={persistor}>
+        <Router />
+      </PersistGate>
     </Provider>
   );
 };

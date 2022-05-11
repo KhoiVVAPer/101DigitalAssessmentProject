@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import fonts from "@constants/fonts";
-import { BLACK } from "@constants/colors";
+import { BLACK, PRIMARY } from "@constants/colors";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -8,9 +8,12 @@ import { RNText } from "../index";
 
 type HeaderProps = {
   onPressRightIcon?: () => void;
+  onPressLeftIcon?: () => void;
   rightIconName?: string;
+  leftIconName?: string;
   title: string;
   canGoBack?: boolean;
+  leftIconNameTitle?: string;
 };
 
 export const RNHeader: FC<HeaderProps> = ({
@@ -18,6 +21,9 @@ export const RNHeader: FC<HeaderProps> = ({
   rightIconName,
   onPressRightIcon,
   canGoBack,
+  leftIconName,
+  leftIconNameTitle,
+  onPressLeftIcon,
 }): JSX.Element => {
   const { goBack } = useNavigation();
   return (
@@ -34,15 +40,26 @@ export const RNHeader: FC<HeaderProps> = ({
         </TouchableOpacity>
       )}
 
+      {leftIconName && (
+        <TouchableOpacity style={styles.leftBtn} onPress={onPressLeftIcon}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Icon style={styles.iconBtn} name={leftIconName} size={15} />
+            {leftIconNameTitle && (
+              <RNText text={leftIconNameTitle} style={styles.titleSmall} />
+            )}
+          </View>
+        </TouchableOpacity>
+      )}
+
       {rightIconName && (
         <TouchableOpacity style={styles.rightBtn} onPress={onPressRightIcon}>
           <View>
-            <Icon
-              style={styles.iconBtn}
-              name={rightIconName}
-              size={30}
-              color={BLACK}
-            />
+            <Icon style={styles.iconBtn} name={rightIconName} size={30} />
           </View>
         </TouchableOpacity>
       )}
@@ -64,10 +81,16 @@ const styles = StyleSheet.create({
     ...fonts.types.normalText,
     color: BLACK,
   },
+  titleSmall: {
+    fontSize: fonts.sizes?.small,
+    marginLeft: 5,
+    color: "#2596be",
+  },
   leftBtn: {
     alignItems: "center",
+    justifyContent: "flex-start",
     position: "absolute",
-    width: 50,
+    left: 15,
   },
   rightBtn: {
     alignItems: "center",

@@ -13,7 +13,6 @@ export function* handlerGetUserInfo(action: IRequestAction) {
       yield put(getUserInfoFailed(response.statusText));
     }
   } catch (error) {
-    console.log("error2", error);
-    yield put(getUserInfoFailed());
+    console.log("error", error);
   }
 }

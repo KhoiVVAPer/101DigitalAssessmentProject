@@ -6,10 +6,10 @@ export const invoiceParser = (item: IInvoiceResponse): IInvoice => {
   return {
     id: item.invoiceId,
     invoiceDate: item.invoiceDate,
-    itemReference: item.referenceNo ?? "empty",
+    itemReference: item.referenceNo ?? "",
     description: item.description,
     quantity: Math.round(Math.random() * 10),
-    amount: item.balanceAmount,
+    amount: item.balanceAmount ?? "",
     invoiceNumber: item.invoiceNumber,
   };
 };
